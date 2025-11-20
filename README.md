@@ -1,106 +1,126 @@
 # Xahau SmartWallet Guardian
 
-SmartWallet Guardian is a **no-code security hook** for Xahau wallets.  
-It automatically limits outgoing payments to **100 XAH per transaction** to protect users from mistakes, scams, and accidental large transfers.
+SmartWallet Guardian is a simple, no-code security Hook for Xahau Mainnet that protects users by limiting outgoing payments to **100 XAH per transaction**.  
+This prevents accidental large transfers and reduces scam-related high-value losses.
 
-This project is built for the Xahau Contest as a simple and practical example of how Hooks can improve everyday safety on the Xahau network.
+The project includes:
+
+- A working Xahau Hook (`limit100.c`)
+- A public online service website
+- Documentation & architecture notes
+- A demo Xahau account with the Hook installed
 
 ---
 
 ## 🚀 Features
 
-- Protects your wallet from sending more than **100 XAH**
-- Blocks only **outgoing** payments — incoming payments remain fully allowed
-- Works entirely on-chain using Xahau Hooks
-- No coding required for end-users
-- Easy deployment through the official Xahau Hooks Builder
-- Fully open-source
+- Blocks outgoing payments **>100 XAH**
+- Allows outgoing payments **≤100 XAH**
+- Incoming payments always allowed
+- Minimal, reliable, and beginner-friendly logic
+- 100% on-chain via Xahau Hooks
+- Installable without coding using Hooks Builder + Xaman
 
 ---
 
-## 🏗 Architecture
+## 🧱 Architecture Overview
 
-The Hook is implemented in `src/limit100.c` using the official Hooks API.
+The Hook:
 
-Logic:
+1. Runs only on `ttPAYMENT`
+2. Checks sender = guarded account  
+3. Reads `sfAmount`
+4. Converts to drops with `AMOUNT_TO_DROPS`
+5. If amount > 100 XAH → rollback  
+6. Else → accept
 
-1. Trigger only on `ttPAYMENT`
-2. Check if transaction is from the guarded account
-3. Read `sfAmount` from the transaction
-4. Convert amount to drops using `AMOUNT_TO_DROPS`
-5. Compare against `100,000,000` drops (100 XAH)
-6. `accept` if below limit, `rollback` if above limit
+Full architecture: `/docs/architecture.md`
 
-Full design docs: `/docs/architecture.md`
+---
+## 📁 Project Structure
+
+/src/limit100.c # The Hook logic (C → WASM)
+/docs/architecture.md # Architecture overview
+/README.md # Main documentation
+/LICENSE # MIT License
+/submission.md # Contest submission file
+
 
 ---
 
-## 📦 Project Structure
+## 🔧 Demo Account (Hook Installed)
 
-src/
-limit100.c # Hook implementation
-docs/
-architecture.md # Internal documentation
-README.md # Main project info
-LICENSE # MIT License
+A public demo account with SmartWallet Guardian installed:
 
+rsMd9CdXk71RtkgiuQHJZsHqMw9qxssERc
+
+---
+
+Behavior:
+
+- Send ≤100 XAH → ACCEPT  
+- Send >100 XAH → REJECTED  
+- Receive XAH → ALWAYS ACCEPTED  
 
 ---
 
 ## 🧪 Testing
 
-### 1. Using Hooks Builder (no real funds)
+### ✔ Hooks Builder (no real funds)
+1. Go to TEST tab  
+2. Tx Type: Payment  
+3. Amount: 50 → should ACCEPT  
+4. Amount: 150 → should ROLLBACK  
+5. Fee: use **Suggest** button  
+6. Run Test  
 
-1. Open the **TEST** tab in Hooks Builder  
-2. Choose `Payment` as the transaction type  
-3. Test two cases:
-   - 50 XAH → **ACCEPT**
-   - 150 XAH → **ROLLBACK**
-4. Use **Suggest** button for proper fees
+### ✔ Live on Xahau Mainnet
+From the guarded account:
 
-### 2. Live test (Xahau Mainnet)
-
-Once deployed on your real account:
-
-- Sending **≤100 XAH** → success  
-- Sending **>100 XAH** → blocked by hook  
-- Incoming payments → always allowed  
+| Amount | Result |
+|--------|--------|
+| 50 XAH | ✔ Accepted |
+| 120 XAH | ❌ Blocked |
+| Incoming → any amount | ✔ Allowed |
 
 ---
 
-## 🧩 Deploying the Hook
+## 🛠 Deploying the Hook
 
 1. Open Xahau Hooks Builder  
-2. Paste the content from `src/limit100.c`  
+2. Paste `src/limit100.c`  
 3. Click **Compile to WASM**  
-4. Go to **Deploy** tab  
-5. Select:
-   - Network: **Xahau Mainnet**
-   - HookOn: `ttPAYMENT`
-   - WASM file: `limit100.wasm`
-6. Click **Set Hook**
-7. Scan & sign using **Xaman**
+4. Go to **Deploy**  
+5. Network: Xahau Mainnet  
+6. HookOn: `ttPAYMENT`  
+7. Upload compiled WASM  
+8. Click **Set Hook**  
+9. Sign with **Xaman**
 
 ---
 
 ## 🌐 Online Service
 
+For non-technical users:  
 https://proactiveducation.com/xahau-smartwallet-guardian/
 
-This page explains the Guardian Hook in simple terms so non-developers can use it.
+This site explains SmartWallet Guardian in simple language and links to the Hook installer.
 
 ---
 
-## 🛣 Roadmap
+## 🛣 Future Extensions
 
-- Customizable limits (user-defined)
-- Daily spending caps
-- Emergency freeze mode
-- Whitelisted accounts
-- Dashboard UI to manage policies
+- Custom user-defined limit  
+- Daily/weekly spending caps  
+- Whitelists & blacklists  
+- Time-window restrictions (office hours)  
+- Multi-rule guardian dashboard  
 
 ---
 
 ## 📄 License
 
-This project is released under the **MIT License**.
+MIT License – free to use and modify.
+
+## 📁 Project Structure
+
