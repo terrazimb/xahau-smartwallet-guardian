@@ -40,11 +40,13 @@ Full architecture: `/docs/architecture.md`
 
 ## 📁 Project Structure
 
+\`\`\`
 /src/limit100.c # The Hook logic (C → WASM)
 /docs/architecture.md # Architecture overview
-/README.md # Main documentation
-/LICENSE # MIT License
-/submission.md # Contest submission file
+README.md # Main documentation
+LICENSE # MIT License
+submission.md # Contest submission file
+\`\`\`
 
 ---
 
