@@ -122,5 +122,3 @@ This site explains SmartWallet Guardian in simple language and links to the Hook
 
 MIT License – free to use and modify.
 
-## 📁 Project Structure
-
