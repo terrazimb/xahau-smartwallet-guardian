@@ -11,7 +11,8 @@
 ## 1. Summary
 
 SmartWallet Guardian is a no-code security Hook that protects Xahau users by limiting outgoing payments to 100 XAH.  
-It prevents high-value mistakes and scam-triggered transfers.
+It prevents high-value mistakes and scam-triggered transfers. 
+“This Hook is deployed and tested on Xahau Mainnet.”
 
 ---
 
