@@ -20,14 +20,11 @@ SmartWallet Guardian is an on-account Hook for Xahau that enforces a hard limit 
 
 ## File Structure
 
-/src/limit100.c # The Hook logic (C → WASM)
-/docs/architecture.md # This document
-/README.md # Main documentation
-/LICENSE # MIT License
-/submission.md # Contest submission file
-
----
-
+- /src/limit100.c # The Hook logic (C → WASM)
+- /docs/architecture.md # This document
+- /README.md # Main documentation
+- /LICENSE # MIT License
+- /submission.md # Contest submission file
 
 ---
 
